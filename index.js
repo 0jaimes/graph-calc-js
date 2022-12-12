@@ -4,8 +4,6 @@ const onFunctionSubmit = (funcName, funcForm) => {
         xRange.push(i);
     }
 
-    console.log(funcName);
-
     let randColorIndx = Math.floor(Math.random() * colors.length);
 
     let yList = eval(`[${xRange}].map(x => ${document[funcForm][funcName].value})`);
@@ -24,7 +22,14 @@ let funcCount = 1;
 
 const addFunction = (e) => {
     let list = document.getElementById('funcList');
-    list.innerHTML += `
+    let previousFunctions = {};
+
+    for (let i = 0; i < funcCount; i++) {
+        console.log(document[`funcForm${i + 1}`][`func${i + 1}`].value);
+        previousFunctions[`${i + 1}`] = (document[`funcForm${i + 1}`][`func${i + 1}`].value);
+    }
+
+    list.innerHTML = list.innerHTML + `
     <li class="list-group-item">
         <form name="funcForm${funcCount + 1}">
         <input class="form-control" name="func${funcCount + 1}" type="text" placeholder="x**2">
@@ -32,6 +37,11 @@ const addFunction = (e) => {
         </form>
     </li>
     `;
+
+    for (let i = 0; i < funcCount; i++) {
+        document[`funcForm${i + 1}`][`func${i + 1}`].value = previousFunctions[`${i + 1}`];
+    }
+
     funcCount += 1;
 };
 
