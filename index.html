@@ -18,16 +18,34 @@
 
   <div class="row">
     <div class="col-lg-4 p-0">
-
       <ul class="list-group" id="funcList">
         <li class="list-group-item">
-          <button href="#" class="btn btn-dark w-100" onclick="addFunction()">+</button>
-          <li class="list-group-item">
-            <form name="funcForm1">
-            <input class="form-control" name="func1" type="text" placeholder="x**2" onselect="">
-            <button class="btn btn-warning w-25" type="button" onClick="onFunctionSubmit('func1', 'funcForm1')">Graph</button>
-            </form>
+          <div class="card">
+           
+            <div class="card-body">
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-success">
+                  Functions are defined using Javascript syntax. Examples:
+                </li>
+                <li class="list-group-item list-group-item-primary">
+                  Math.log(x) + Math.sin(x) ** 2
+                </li>
+                <li class="list-group-item list-group-item-primary">
+                  Math.abs(x) + Math.sin(x) ** 2
+                </li>
+              </ul>
+            </div>
+          </div>
         </li>
+        <li class="list-group-item">
+          <button href="#" class="btn btn-dark w-100" onclick="addFunction()">+</button>
+        </li>
+        <li class="list-group-item">
+          <form name="funcForm1">
+            <input class="form-control" name="func1" type="text" placeholder="x**2" onselect="">
+            <button class="btn btn-warning w-25" type="button"
+              onClick="onFunctionSubmit('func1', 'funcForm1')">Graph</button>
+          </form>
         </li>
       </ul>
     </div>
