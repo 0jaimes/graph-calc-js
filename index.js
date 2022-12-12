@@ -1,12 +1,14 @@
-const onFunctionSubmit = (e) => {
+const onFunctionSubmit = (funcName, funcForm) => {
     let xRange = [];
     for (let i = -GRID_X; i <= GRID_X; i += 0.01) {
         xRange.push(i);
     }
 
+    console.log(funcName);
+
     let randColorIndx = Math.floor(Math.random() * colors.length);
 
-    let yList = eval(`[${xRange}].map(x => ${document.funcForm.func.value})`);
+    let yList = eval(`[${xRange}].map(x => ${document[funcForm][funcName].value})`);
 
     for (let i = 0; i < yList.length; i += 2) {
         let p1 = new Point(xRange[i], yList[i], DEFAULT_LINE_SIZE);
@@ -17,16 +19,20 @@ const onFunctionSubmit = (e) => {
     }
 };
 
+let funcCount = 1;
+
+
 const addFunction = (e) => {
     let list = document.getElementById('funcList');
     list.innerHTML += `
     <li class="list-group-item">
-        <form name="funcForm">
-        <input class="form-control" name="func" type="text" value="x**2">
-        <button class="btn btn-warning w-25" type="button" onClick="onFunctionSubmit()">Graph Function</button>
+        <form name="funcForm${funcCount + 1}">
+        <input class="form-control" name="func${funcCount + 1}" type="text" placeholder="x**2">
+        <button class="btn btn-warning w-25" type="button" onClick="onFunctionSubmit('func${funcCount + 1}', 'funcForm${funcCount + 1}')">Graph Function</button>
         </form>
     </li>
     `;
+    funcCount += 1;
 };
 
 const clear = () => {

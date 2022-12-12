@@ -21,10 +21,13 @@
 
       <ul class="list-group" id="funcList">
         <li class="list-group-item">
-          <button href="#" class="btn btn-danger w-100" onclick="clear()">CLEAR</button>
-        </li>
-        <li class="list-group-item">
           <button href="#" class="btn btn-dark w-100" onclick="addFunction()">+</button>
+          <li class="list-group-item">
+            <form name="funcForm1">
+            <input class="form-control" name="func1" type="text" value="x**2" onselect="">
+            <button class="btn btn-warning w-25" type="button" onClick="onFunctionSubmit('func1', 'funcForm1')">Graph Function</button>
+            </form>
+        </li>
         </li>
       </ul>
     </div>
