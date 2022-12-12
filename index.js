@@ -28,7 +28,7 @@ const addFunction = (e) => {
     <li class="list-group-item">
         <form name="funcForm${funcCount + 1}">
         <input class="form-control" name="func${funcCount + 1}" type="text" placeholder="x**2">
-        <button class="btn btn-warning w-25" type="button" onClick="onFunctionSubmit('func${funcCount + 1}', 'funcForm${funcCount + 1}')">Graph Function</button>
+        <button class="btn btn-warning w-25" type="button" onClick="onFunctionSubmit('func${funcCount + 1}', 'funcForm${funcCount + 1}')">Graph</button>
         </form>
     </li>
     `;
