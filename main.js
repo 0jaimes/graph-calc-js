@@ -1,21 +1,19 @@
 // Globals
-const GRID_X = 20;
-const GRID_Y = 20;
+const GRID_X            = 20;
+const GRID_Y            = 20;
 const DEFAULT_LINE_SIZE = 5;
-const CANVAS = document.getElementById('main-canvas');
-const GL = getWebGLContext(CANVAS, { preserveDrawingBuffer: true });
-
+const CANVAS            = document.getElementById('main-canvas');
+const GL                = getWebGLContext(CANVAS, { preserveDrawingBuffer: true });
 
 // Color constants
-const red = [1.0, 0.0, 0.0];
-const green = [0.0, 1.0, 0.0];
+const red    = [1.0, 0.0, 0.0];
+const green  = [0.0, 1.0, 0.0];
 const purple = [1.0, 0.0, 1.0];
-const blue = [0.0, 0.0, 1.0];
-const cyan = [0.0, 1.0, 1.0];
-const black = [0.0, 0.0, 0.0];
+const blue   = [0.0, 0.0, 1.0];
+const cyan   = [0.0, 1.0, 1.0];
+const black  = [0.0, 0.0, 0.0];
 const colors = [red, green, purple, blue, cyan, black];
 
-let LINES = [];
 
 var VSHADER_SOURCE = `
   attribute vec4 a_Position;
@@ -56,51 +54,35 @@ function main() {
   GL.clear(GL.COLOR_BUFFER_BIT);
 
 
+  // Initialize by drawing the grid onto the canvas
   drawGrid(1.25, black, GRID_X, GRID_Y);
-
 }
 
-const drawLines = () => {
-  LINES.forEach((l) => { if (!l.drawn) l.draw() });
-}
 
-const drawFunction = (func, color) => {
-  let xRange = [];
-  for (let i = -GRID_X; i <= GRID_X; i += 0.01) {
-    xRange.push(i);
+function drawGrid(ps, c, startX, startY) {
+  const endX = -startX;
+  const endY = -startY;
+
+  const gridLines = [];
+
+  // Create the column lines
+  for (let col = 0; col <= GRID_X * 2; col++) {
+    const colX = col - GRID_X;
+    const startPoint = new Point(colX, endY, ps, c);
+    const endPoint = new Point(colX, startY, ps, c);
+    const l = new Line(startPoint, endPoint, ps, c);
+    gridLines.push(l);
   }
 
-  let sinXList = func(xRange);
-
-  for (let i = 0; i < sinXList.length; i += 2) {
-    let p1 = new Point(xRange[i], sinXList[i], DEFAULT_LINE_SIZE);
-    let p2 = new Point(xRange[i + 1], sinXList[i + 1], DEFAULT_LINE_SIZE);
-
-    let line = new Line(p1, p2, DEFAULT_LINE_SIZE, color);
-    line.draw();
-  }
-}
-
-function initArrayBuffer(gl, data, num, type, attribute) {
-  let buffer = gl.createBuffer(); // create buffer object
-  if (!buffer) {
-    console.log('Failed to create the buffer object');
-    return -1;
+  // Create the row lines
+  for (let row = 0; row <= GRID_Y * 2; row++) {
+    const rowY = row - GRID_Y;
+    const endPoint = new Point(startX, rowY, ps, c);
+    const startPoint = new Point(endX, rowY, ps, c);
+    const l = new Line(startPoint, endPoint, ps, c);
+    gridLines.push(l);
   }
 
-  // Write data into buffer object
-  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-  gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
-
-  let a_attribute = gl.getAttribLocation(gl.program, attribute);
-
-  if (a_attribute < 0) {
-    console.log('Failed to get attribute location');
-    return -1;
-  }
-
-  gl.vertexAttribPointer(a_attribute, num, type, false, 0, 0);
-  gl.enableVertexAttribArray(a_attribute);
-
-  return true;
+  // Draw the grid
+  gridLines.forEach((l) => l.draw());
 }

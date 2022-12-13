@@ -11,17 +11,19 @@
 </head>
 
 <body onload="main()">
+  <!-- Navbar -->
   <nav class="navbar navbar-dark bg-dark">
     <span class="navbar-brand mb-0 h1">graph-calc-js</span>
   </nav>
 
-
+  <!-- Page -->
   <div class="row">
+
+    <!-- Side Panel -->
     <div class="col-lg-4 p-0">
       <ul class="list-group" id="funcList">
         <li class="list-group-item">
           <div class="card">
-           
             <div class="card-body">
               <ul class="list-group">
                 <li class="list-group-item list-group-item-success">
@@ -38,18 +40,26 @@
           </div>
         </li>
         <li class="list-group-item">
-          <button href="#" class="btn btn-dark w-100" onclick="addFunction()">+</button>
+          <button href="#" class="btn btn-dark w-100" onclick="onAddFunction()" id="add">+</button>
+          <button href="#" class="btn btn-warning mt-1 w-100" onclick="onClear()" id="add">CLEAR</button>
         </li>
         <li class="list-group-item">
           <form name="funcForm1">
             <input class="form-control" name="func1" type="text" placeholder="x**2" onselect="">
-            <button class="btn btn-warning w-25" type="button"
-              onClick="onFunctionSubmit('func1', 'funcForm1')">Graph</button>
+            <div class="row">
+              <div class="col md-6">
+                <button class="btn btn-info w-50 mt-2" type="button"
+                  onClick="onFunctionSubmit('func1', 'funcForm1')">Graph</button>
+              </div>
+              <div class="col">
+              </div>
+            </div>
           </form>
         </li>
       </ul>
     </div>
 
+    <!-- Graph - WebGL Canvas -->
     <div class="col-lg-8 p-0 m-0 w-100" id="canvas-div">
       <canvas id="main-canvas" width="1270" height="1000">
         Please use a browser that supports "canvas"
@@ -58,6 +68,7 @@
 
   </div>
 
+  <!-- Custom JS -->
   <script src="./lib/webgl-utils.js"></script>
   <script src="./lib/webgl-debug.js"></script>
   <script src="./lib/cuon-utils.js"></script>
@@ -65,9 +76,8 @@
   <script src="main.js"></script>
   <script src="point.js"></script>
   <script src="line.js"></script>
-  <script src="grid.js"></script>
   <script src="functions.js"></script>
-  <script src="index.js"></script>
+  <script src="onclicks.js"></script>
 
   <!-- Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
