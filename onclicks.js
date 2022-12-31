@@ -1,5 +1,12 @@
 let funcCount = 1;  // Total functions counter
 
+// yo shoutout @chatGPT for this piece of absolute fuego 🔥
+function createFunctionFromEquation(equation) {
+  equation = equation.replace(/x/g, 'arguments[0]');
+  equation = `return ${equation};`;
+  return new Function(equation);
+}
+
 const onFunctionSubmit = (funcName, funcForm) => {
   let xRange = [];
   for (let i = -GRID_X; i <= GRID_X; i += 0.01) {
@@ -16,7 +23,8 @@ const onFunctionSubmit = (funcName, funcForm) => {
 
   try {
     // Sketch js suff. Start.
-    let yList = eval(`[${xRange}].map(x => ${exprr})`);
+    let graphFunc = createFunctionFromEquation(exprr);
+    let yList = xRange.map((x) => graphFunc(x));
     // Sketch js suff. Done.
 
     for (let i = 0; i < yList.length; i += 2) {
